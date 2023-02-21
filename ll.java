@@ -1,3 +1,4 @@
+
 public class ll {
     Node head;
     // NODE
@@ -132,14 +133,49 @@ public class ll {
         prevNode.next=prevNode.next.next;
         return head;
     }
+
+    
+    //9. Check whether the linkedlist is palindrome or not     
+   /* 3 steps: 1.divide ll into 2 parts from middle            O(N/2)
+    *          2.2nd half reverse                              O(N/2)
+               3.compare the first half with second half       O(N/2)=O(N/2)
+   */
+  public Node reverse(Node head){
+    if(head==null && head.next==null) return head;
+    Node newNode=reverse(head.next);
+    head.next=head;
+    head.next=null;
+    return newNode;
+
+  }
+  public boolean ispalindrome(Node head){
+    if(head==null || head.next==null) return true;
+    Node slow=head,fast=head;
+    while(fast!=null && fast.next!=null){
+        slow=slow.next;
+        fast=fast.next;
+    }
+    slow.next=(reverse(slow.next)); 
+    slow=slow.next;
+    Node dummy=head;
+    while(slow!=null){
+        if(dummy.data != slow.data) return false;
+        dummy=dummy.next;
+        slow=slow.next;
+    }
+    return true;
+
+
+  }
+
+
     // main function
     public static void main(String[] args) {
         ll list =new ll();        list.addf(1);
-        list.addf(0);
+        list.addf(1);
         list.addl(2);
+        list.addf(1);
         list.printlist();
-        
-        list.removenth(list.head, 2);
         list.printlist();
        
     }
